@@ -632,9 +632,6 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 .about-side .tag,.about-side .pill{background:rgba(127,167,255,.14);color:#C9D6FF;border-color:rgba(127,167,255,.25)}
 
 /* short-form grid */
-.shorts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
-.short-card{aspect-ratio:9/16;border-radius:var(--r);background:#0E1424;border:1px solid #1B2540;display:grid;place-items:center;text-align:center;padding:20px;color:#8B96AE;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;line-height:1.7}
-.short-card b{display:block;font-family:var(--f-disp);font-size:2rem;letter-spacing:-.04em;color:#7FA7FF;text-transform:none;margin-bottom:8px}
 
 /* ---------------- spotlight testimonial ---------------- */
 .spotlight{position:relative;width:var(--w);margin:clamp(24px,3.5vh,44px) auto 0;z-index:2}
@@ -918,12 +915,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 
   <!-- ---- SHORT-FORM ---- -->
   <div class="panel" id="panel-shorts" role="tabpanel" aria-labelledby="tab-shorts" hidden>
-    <div class="shorts-grid" data-shorts>
-      <div class="short-card"><div><b>9:16</b>Reels · Shorts · TikTok<br>clips coming soon</div></div>
-      <div class="short-card"><div><b>9:16</b>Hook-first cutdowns</div></div>
-      <div class="short-card"><div><b>9:16</b>Captioned for sound-off</div></div>
-      <div class="short-card"><div><b>9:16</b>Batch delivery</div></div>
-    </div>
+    <div class="ads-grid" data-shorts></div>
   </div>
 
 </section>
@@ -1080,13 +1072,13 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   /* ---------------- data ---------------- */
 
   var VIDEOS = [
-    { id: '6RT9G0htI8Q', title: '3 Phrases to Negotiate Your Salary Offer to be Higher', ch: 'Self Made Millennial' },
-    { id: 'ip4oh3_MmOI', title: 'Your Instagram Content Is Boring (Here’s The 3-Step Fix)', ch: 'Ellen Mackenzie · Dishing up Digital' },
-    { id: 'Fass9esQRqI', title: 'Give Me 7 Minutes, Here’s Exactly How To Go From Manager To Director', ch: 'Jo Clark · Work It Sister' },
-    { id: 'dKv498DDbmw', title: 'Why Instagram Engagement Is Dead (And My New Strategy)', ch: 'Ellen Mackenzie · Dishing up Digital' },
-    { id: '_qh1YOCxwqU', title: 'If I Got A Job Offer Today, Here’s How I’d Negotiate $30K More', ch: 'Erika Thomas' },
-    { id: 'bhEjuyONqt4', title: 'How I’d Get A 6 Figure Supply Chain Job With No Experience', ch: 'Erika Thomas' },
-    { id: 'q9mtt7EEoFw', title: 'Copy This Thumbnail Style, It’ll Blow Up Your Content', ch: 'Abdulazeez Ba' }
+    { id: 'bhEjuyONqt4', title: 'How I\u2019d Get A 6 Figure Supply Chain Job With No Experience (Step by Step)', ch: 'Erika Thomas' },
+    { id: 'jsZQ587bKLA', title: 'How a member made $2500 from a single outreach message', ch: 'Saad Belcaid' },
+    { id: '_LVXB7WiVvs', title: 'Who REALLY Owns Neo Financial', ch: 'Money With Mark' },
+    { id: 'qKH3RSAo8s8', title: 'How to buy a house in Denmark', ch: 'Mario Scian' },
+    { id: 'oCzcK9YR4-k', title: 'Best Ways to Make $$$ on YouTube from Day 1', ch: 'Victoria \u00b7 YouTube Strategy' },
+    { id: '0jLNabt5OD8', title: 'How TV Shows Ruin Home Baking Businesses', ch: 'Maria Haversham \u00b7 Cake Decorating' },
+    { id: 'DR6EuVjSyRI', title: 'The REAL Difference Between Interior Designer, Decorator and Architect', ch: 'Amelia Fenmore \u00b7 Interior Design' }
   ];
 
   var THUMBS = [
@@ -1120,24 +1112,25 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
     { f: 'after-5-minutes',     t: 'We Knew After 5 Minutes',            c: 'Career' }
   ];
 
-  /* `v` is a self-hosted clip in assets/video/. Every spot is served this way:
-     a YouTube embed always shows the uploading channel's name on hover and
-     modestbranding no longer suppresses it. `src` remains supported as a
-     third-party embed fallback. `id` is only the poster filename in
-     assets/img/ads/ — never the thing that plays. */
+  /* `id` is the YouTube video id: it names both the poster in assets/img/ads/
+     and the clip that plays. The previous set pointed at self-hosted mp4s in
+     assets/video/, a directory that never existed, so every spot 404'd. */
   var ADS = [
-    { id: 'ai-ugc-caption',      v: 'ai-ugc-caption',       title: 'Dental Lead Gen',     note: 'Client work · AI UGC' },
-    { id: 'ai-podcast',          v: 'ai-podcast',           title: 'AI Podcast',          note: 'Spec spot · no filmed footage' },
-    { id: 'gVFAb-ACRIs',         v: 'music-ai-ad',          title: 'Music AI Ad',         note: 'Spec spot · no filmed footage' },
-    { id: 'glp1-doctor',         v: 'glp1-doctor',          title: 'GLP-1 Support',       note: 'Supplement ad · practitioner hook' },
-    { id: 'l79Pd79ACB4',         v: 'ultimapeak',           title: 'UltimaPeak',          note: 'Animated song ad' },
-    { id: 'jAMQbhqTrjk',         v: 'anabol-hardcore',      title: 'Anabol Hardcore',     note: 'Supplement ad' },
-    { id: 'glp1-transformation', v: 'glp1-transformation',  title: 'GLP-1 Support',       note: 'Supplement ad · before/after hook' },
-    { id: 'T7hJrUx-3pQ',         v: 'claymotion-ai-ad',     title: 'Claymotion AI Ad',    note: 'Spec spot · no filmed footage' },
-    { id: 'drive-1Jb14pzlNvPkQ0pcY1PShoXfiRMXYlzRw', v: 'liver-health',
-                                                            title: 'Liver Health',        note: 'Spec spot · no filmed footage' },
-    { id: 'glp1-testimonial',    v: 'glp1-testimonial',     title: 'GLP-1 Support',       note: 'Supplement ad · UGC hook' },
-    { id: 'zFgAyJ3UBBA',         v: 'dose-for-your-liver',  title: 'Dose For Your Liver', note: 'Supplement ad' }
+    { id: 'l79Pd79ACB4', title: 'Crochet Style',      note: 'Supplement ad' },
+    { id: 'jAMQbhqTrjk', title: 'Podcast Style',      note: 'Supplement ad' },
+    { id: '2mxB2N89HDg', title: 'AI Slop',            note: 'Supplement ad' },
+    { id: 'vqeTwsmomiM', title: 'UGC Presenter',      note: 'Supplement ad' },
+    { id: 'r2pVBCU2K48', title: 'AI Skeleton Song',   note: 'Supplement ad' },
+    { id: 'iuHkO-jckyA', title: 'AI Comic Style',     note: 'Supplement ad' },
+    { id: 'PLtjxlvZXaY', title: 'AI Skeleton Song 2', note: 'Supplement ad' },
+    { id: 'r_EzpGA44vo', title: 'Lego Style',         note: 'Supplement ad' }
+  ];
+
+  var SHORTS = [
+    { id: '3ohb-UkTG-I', title: 'Educational',   note: 'Maria Haversham' },
+    { id: '2e4BWVlP30w', title: 'VSL Ad',        note: 'Mark Taylor' },
+    { id: '4QS6NxIi7nc', title: 'Informational', note: 'Gr\u00fcns Supplement brand' },
+    { id: '3JRUByWNXtA', title: 'Product review', note: 'Mark Taylor' }
   ];
 
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
@@ -1176,39 +1169,36 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
     });
   }
 
-  var adGrid = $('[data-ads]');
-  if (adGrid) {
-    adGrid.innerHTML = ADS.map(function (ad) {
-      var attr = ad.v
-        ? 'data-v="' + esc(ad.v) + '"'
-        : 'data-src="' + esc(ad.src || 'https://www.youtube-nocookie.com/embed/' + ad.id +
-            '?autoplay=1&rel=0&modestbranding=1') + '"';
+  /* Ads and short-form are the same 9:16 card, so they share one builder.
+     Nothing from YouTube is fetched until the poster is clicked. */
+  function buildReel(sel, items, dir, label) {
+    var grid = $(sel);
+    if (!grid) return;
+    grid.innerHTML = items.map(function (it) {
       return '<article class="ad-live">' +
-        '<button class="ad-frame" ' + attr + ' aria-label="Play: ' + esc(ad.title) + '">' +
-          '<img src="assets/img/ads/' + ad.id + '.webp" alt="" width="720" height="1280" loading="lazy" decoding="async">' +
+        '<button class="ad-frame" data-yt-reel="' + esc(it.id) + '" aria-label="Play: ' + esc(it.title) + '">' +
+          '<img src="assets/img/' + dir + '/' + it.id + '.webp" alt="" width="720" height="1280" loading="lazy" decoding="async">' +
           '<span class="v-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.6v12.8L19 12z"/></svg></span>' +
-          '<span class="ad-meta"><b>' + esc(ad.title) + '</b><span>' + esc(ad.note) + '</span></span>' +
+          '<span class="ad-meta"><b>' + esc(it.title) + '</b><span>' + esc(it.note) + '</span></span>' +
         '</button>' +
       '</article>';
     }).join('');
 
-    adGrid.addEventListener('click', function (e) {
-      var btn = e.target.closest('[data-v],[data-src]');
+    grid.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-yt-reel]');
       if (!btn) return;
       var f = document.createElement('div');
       f.className = 'ad-frame';
-      var v = btn.getAttribute('data-v');
-      if (v) {
-        /* preload="none" on the facade, so nothing is fetched until this click */
-        f.innerHTML = '<video src="assets/video/' + v + '.mp4" controls autoplay ' +
-          'playsinline preload="auto"></video>';
-      } else {
-        f.innerHTML = '<iframe src="' + btn.getAttribute('data-src') +
-          '" title="Ad spot" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
-      }
+      f.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' +
+        encodeURIComponent(btn.getAttribute('data-yt-reel')) +
+        '?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="' + esc(label) +
+        '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
       btn.replaceWith(f);
     });
   }
+
+  buildReel('[data-ads]', ADS, 'ads', 'Ad spot');
+  buildReel('[data-shorts]', SHORTS, 'shorts', 'Short-form clip');
 
   /* ---------------- tabs ---------------- */
   var tabs = $$('.tab');
