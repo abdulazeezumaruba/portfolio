@@ -294,7 +294,7 @@ h1,h2,h3{font-family:var(--f-disp);font-weight:800;letter-spacing:-.032em;line-h
   font-family:var(--f-mono);font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;
   color:var(--sand-dim)}
 .svc-proof figcaption svg{width:19px;height:19px;flex:none;color:var(--ember, #2F6BE8);transform:translateY(1px)}
-.proof-shot{display:block;overflow:hidden;border-radius:11px;background:#12161F;
+.proof-shot{display:block;overflow:hidden;border-radius:11px;background:#12161F;cursor:zoom-in;
   border:1px solid rgba(14,20,36,.16);box-shadow:0 20px 44px -26px rgba(6,10,24,.72);
   transform:rotate(-1.7deg);transition:transform .4s var(--ease)}
 .proof-shot img{display:block;width:100%;height:auto;transition:transform .55s var(--ease)}
@@ -917,7 +917,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
       <ul class="svc-tags"><li>Hook-first cuts</li><li>Captions</li><li>Reels · Shorts · TikTok</li><li>Batch delivery</li></ul>
       <figure class="svc-proof">
         <figcaption><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5c7.2.4 12.4 4 14.6 10.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M13.6 15.9l5.2.6.7-5.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>What the client said next</figcaption>
-        <span class="proof-shot"><img src="assets/img/proof/tiare-best-edit.webp" alt="Instagram message from Tiare Tarewa of Sovereign Identity reading: I've worked with video editors in the past but this edit is by far one of the best" width="1290" height="680" loading="lazy" decoding="async"></span>
+        <span class="proof-shot"><img src="assets/img/proof/tiare-best-edit.webp" alt="Instagram message from Tiare Tarewa of Sovereign Identity reading: I've worked with video editors in the past but this edit is by far one of the best" width="1290" height="510" loading="lazy" decoding="async"></span>
       </figure>
     </article>
   </div>
@@ -1047,7 +1047,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
         </li>
         <li>
           <span class="tl-when">2022 — 2025</span>
-          <b>Mark Taylor · Autogrowth Academy</b>
+          <b>Mark Taylor · Autogrowth Academy <span class="subs">10.2K subs</span></b>
           <em>YouTube channel management with short-form ad creatives</em>
         </li>
         <li>
@@ -1057,7 +1057,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
         </li>
         <li>
           <span class="tl-when">2023 — 2024</span>
-          <b>Julian Corzo</b>
+          <b>Julian Corzo <span class="subs">3.93K subs</span></b>
           <em>Long-form YouTube and short-form content</em>
         </li>
       </ol>
@@ -1364,14 +1364,32 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 
   /* ---------------- lightbox ---------------- */
   var lb = $('#lightbox'), lbImg = $('#lbImg'), lbCap = $('#lbCap');
-  var lbIdx = 0, lastFocus = null;
+  var lbIdx = 0, lastFocus = null, lbSet = [];
 
-  function openLb(i) {
-    lbIdx = (i + THUMBS.length) % THUMBS.length;
-    var t = THUMBS[lbIdx];
-    lbImg.src = 'assets/img/thumbs/' + t.f + '.webp';
-    lbImg.alt = t.t;
-    lbCap.textContent = t.t + '  ·  ' + t.c;
+  /* The thumbnail wall and the proof screenshots are two different sets of
+     pictures through one lightbox, so prev/next stays inside whichever set
+     was opened. */
+  var THUMB_SET = THUMBS.map(function (t) {
+    return { src: 'assets/img/thumbs/' + t.f + '.webp', alt: t.t, cap: t.t + '  ·  ' + t.c };
+  });
+  /* Proof shots are small on purpose; full size is how they are actually read. */
+  var PROOF_SET = $$('.proof-shot').map(function (el, i) {
+    var img = el.querySelector('img');
+    el.setAttribute('data-proof', i);
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'button');
+    el.setAttribute('aria-label', 'Enlarge: ' + (img.getAttribute('alt') || 'client message'));
+    return { src: img.getAttribute('src'), alt: img.getAttribute('alt') || '', cap: '' };
+  });
+
+  function openLb(i, set) {
+    if (set) lbSet = set;
+    if (!lbSet.length) return;
+    lbIdx = (i + lbSet.length) % lbSet.length;
+    var t = lbSet[lbIdx];
+    lbImg.src = t.src;
+    lbImg.alt = t.alt;
+    lbCap.textContent = t.cap;
     lastFocus = document.activeElement;
     lb.hidden = false;
     document.body.style.overflow = 'hidden';
@@ -1384,12 +1402,16 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   }
   document.addEventListener('click', function (e) {
     var fig = e.target.closest('[data-lb]');
-    if (fig) { openLb(parseInt(fig.getAttribute('data-lb'), 10)); return; }
+    if (fig) { openLb(parseInt(fig.getAttribute('data-lb'), 10), THUMB_SET); return; }
+    var shot = e.target.closest('[data-proof]');
+    if (shot) { openLb(parseInt(shot.getAttribute('data-proof'), 10), PROOF_SET); return; }
     if (e.target === lb) closeLb();
   });
   document.addEventListener('keydown', function (e) {
     var fig = e.target.closest && e.target.closest('[data-lb]');
-    if (fig && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openLb(parseInt(fig.getAttribute('data-lb'), 10)); return; }
+    if (fig && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openLb(parseInt(fig.getAttribute('data-lb'), 10), THUMB_SET); return; }
+    var shot = e.target.closest && e.target.closest('[data-proof]');
+    if (shot && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openLb(parseInt(shot.getAttribute('data-proof'), 10), PROOF_SET); return; }
     if (!lb || lb.hidden) return;
     if (e.key === 'Escape') closeLb();
     if (e.key === 'ArrowRight') openLb(lbIdx + 1);
