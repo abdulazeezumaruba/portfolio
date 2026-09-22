@@ -294,11 +294,18 @@ h1,h2,h3{font-family:var(--f-disp);font-weight:800;letter-spacing:-.032em;line-h
   font-family:var(--f-mono);font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;
   color:var(--sand-dim)}
 .svc-proof figcaption svg{width:19px;height:19px;flex:none;color:var(--ember, #2F6BE8);transform:translateY(1px)}
-.svc-proof img{display:block;width:100%;height:auto;border-radius:11px;
+.proof-shot{display:block;overflow:hidden;border-radius:11px;background:#12161F;
   border:1px solid rgba(14,20,36,.16);box-shadow:0 20px 44px -26px rgba(6,10,24,.72);
   transform:rotate(-1.7deg);transition:transform .4s var(--ease)}
-.svc:hover .svc-proof img{transform:rotate(0deg) scale(1.012)}
-@media (prefers-reduced-motion:reduce){.svc-proof img,.svc:hover .svc-proof img{transition:none}}
+.proof-shot img{display:block;width:100%;height:auto;transition:transform .55s var(--ease)}
+.proof-shot:hover img{transform:scale(1.09)}
+.svc:hover .proof-shot{transform:rotate(0deg)}
+/* Ads card carries three: one hero, two beneath it. */
+.proof-pair{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}
+.proof-pair .proof-shot{transform:none}
+.proof-pair .proof-shot img{object-fit:cover}
+@media (prefers-reduced-motion:reduce){
+  .proof-shot,.proof-shot img,.svc:hover .proof-shot,.proof-shot:hover img{transition:none;transform:none}}
 .svc-tags li{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.03em;padding:.38em .7em;border-radius:999px;
   border:1px solid var(--line);color:var(--sand-faint);background:rgba(14,20,36,.02)}
 
@@ -617,7 +624,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 .t-card blockquote{color:#FFFFFF!important}
 .svc-metric span{color:#8B96AE}.svc-metric b{color:#7FA7FF}
 .svc-tags li{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);color:#C9D1E3}
-.svc-proof img{border-color:rgba(255,255,255,.14)}
+.proof-shot{border-color:rgba(255,255,255,.14)}
 .t-card figcaption{border-top-color:rgba(255,255,255,.1)}
 .tools li:hover{background:#141C33!important}
 .contact-card .eyebrow{color:#7FA7FF}.contact-card .eyebrow::before{background:#7FA7FF}
@@ -878,6 +885,14 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
       <h3>AI Video Ads</h3>
       <p>Ad creative built end to end with no filmed footage — script, storyboard, generated shots and the edit, through a production pipeline I wrote myself.</p>
       <ul class="svc-tags"><li>Veo / Google Flow</li><li>Higgsfield</li><li>Nano Banana Pro</li><li>gpt-image-2</li><li>Custom pipeline</li></ul>
+      <figure class="svc-proof">
+        <figcaption><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5c7.2.4 12.4 4 14.6 10.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M13.6 15.9l5.2.6.7-5.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>What the client said next</figcaption>
+        <span class="proof-shot"><img src="assets/img/proof/ads-50k-spend.webp" alt="Client message: It&#39;s around 50k now, on five-figure ad spend" width="1250" height="480" loading="lazy" decoding="async"></span>
+        <div class="proof-pair">
+          <span class="proof-shot"><img src="assets/img/proof/ads-rating.webp" alt="Client note rating overall performance 9.2 out of 10, the highest among the editors evaluated" width="666" height="190" loading="lazy" decoding="async"></span>
+          <span class="proof-shot"><img src="assets/img/proof/ads-launch.webp" alt="Client message: bro this is AMAZING, I can see the money being printed already, set it ready for launch" width="1250" height="530" loading="lazy" decoding="async"></span>
+        </div>
+      </figure>
     </article>
     <article class="svc reveal">
       <div class="svc-top">
@@ -889,7 +904,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
       <ul class="svc-tags"><li>Adobe Premiere Pro</li><li>Retention edits</li><li>Motion graphics</li><li>Sound design</li></ul>
       <figure class="svc-proof">
         <figcaption><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5c7.2.4 12.4 4 14.6 10.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M13.6 15.9l5.2.6.7-5.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>What the client said next</figcaption>
-        <img src="assets/img/proof/erika-4k.webp" alt="Message from Erika Thomas reading: Another $4k close through stripe" width="1290" height="790" loading="lazy" decoding="async">
+        <span class="proof-shot"><img src="assets/img/proof/erika-4k.webp" alt="Message from Erika Thomas reading: Another $4k close through stripe" width="1290" height="790" loading="lazy" decoding="async"></span>
       </figure>
     </article>
     <article class="svc reveal">
@@ -902,7 +917,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
       <ul class="svc-tags"><li>Hook-first cuts</li><li>Captions</li><li>Reels · Shorts · TikTok</li><li>Batch delivery</li></ul>
       <figure class="svc-proof">
         <figcaption><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5c7.2.4 12.4 4 14.6 10.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M13.6 15.9l5.2.6.7-5.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>What the client said next</figcaption>
-        <img src="assets/img/proof/tiare-best-edit.webp" alt="Message from a client reading: I've worked with video editors in the past but this edit is by far one of the best" width="1030" height="295" loading="lazy" decoding="async">
+        <span class="proof-shot"><img src="assets/img/proof/tiare-best-edit.webp" alt="Message from a client reading: I've worked with video editors in the past but this edit is by far one of the best" width="1030" height="295" loading="lazy" decoding="async"></span>
       </figure>
     </article>
   </div>
