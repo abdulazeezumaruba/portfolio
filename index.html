@@ -286,6 +286,19 @@ h1,h2,h3{font-family:var(--f-disp);font-weight:800;letter-spacing:-.032em;line-h
 .svc h3{font-size:1.34rem;margin-bottom:11px;letter-spacing:-.03em}
 .svc p{color:var(--sand-dim);font-size:.94rem}
 .svc-tags{list-style:none;display:flex;flex-wrap:wrap;gap:6px;padding:0;margin:20px 0 0}
+/* Proof pinned to a service card: a real client message, angled like it was
+   dropped on the card. The card is overflow:hidden, so the tilt is kept small
+   and the block sits inside rather than overhanging. */
+.svc-proof{margin:22px -6px 2px;position:relative}
+.svc-proof figcaption{display:flex;align-items:center;gap:7px;margin:0 0 9px 4px;
+  font-family:var(--f-mono);font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--sand-dim)}
+.svc-proof figcaption svg{width:19px;height:19px;flex:none;color:var(--ember, #2F6BE8);transform:translateY(1px)}
+.svc-proof img{display:block;width:100%;height:auto;border-radius:11px;
+  border:1px solid rgba(14,20,36,.16);box-shadow:0 20px 44px -26px rgba(6,10,24,.72);
+  transform:rotate(-1.7deg);transition:transform .4s var(--ease)}
+.svc:hover .svc-proof img{transform:rotate(0deg) scale(1.012)}
+@media (prefers-reduced-motion:reduce){.svc-proof img,.svc:hover .svc-proof img{transition:none}}
 .svc-tags li{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.03em;padding:.38em .7em;border-radius:999px;
   border:1px solid var(--line);color:var(--sand-faint);background:rgba(14,20,36,.02)}
 
@@ -604,6 +617,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 .t-card blockquote{color:#FFFFFF!important}
 .svc-metric span{color:#8B96AE}.svc-metric b{color:#7FA7FF}
 .svc-tags li{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);color:#C9D1E3}
+.svc-proof img{border-color:rgba(255,255,255,.14)}
 .t-card figcaption{border-top-color:rgba(255,255,255,.1)}
 .tools li:hover{background:#141C33!important}
 .contact-card .eyebrow{color:#7FA7FF}.contact-card .eyebrow::before{background:#7FA7FF}
@@ -873,6 +887,10 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
       <h3>Long-form Video</h3>
       <p>Talking-head and documentary-style edits cut for retention — structure, pacing, b-roll, motion graphics and sound design, from raw footage to a publish-ready master.</p>
       <ul class="svc-tags"><li>Adobe Premiere Pro</li><li>Retention edits</li><li>Motion graphics</li><li>Sound design</li></ul>
+      <figure class="svc-proof">
+        <figcaption><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5c7.2.4 12.4 4 14.6 10.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M13.6 15.9l5.2.6.7-5.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>What the client said next</figcaption>
+        <img src="assets/img/proof/erika-4k.webp" alt="Message from Erika Thomas reading: Another $4k close through stripe" width="1290" height="790" loading="lazy" decoding="async">
+      </figure>
     </article>
     <article class="svc reveal">
       <div class="svc-top">
@@ -882,6 +900,10 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
       <h3>Short-form Video</h3>
       <p>Reels, Shorts and TikToks rebuilt around a single hook — never trimmed from the long-form. Captions, pacing and sound tuned for the first three seconds.</p>
       <ul class="svc-tags"><li>Hook-first cuts</li><li>Captions</li><li>Reels · Shorts · TikTok</li><li>Batch delivery</li></ul>
+      <figure class="svc-proof">
+        <figcaption><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5c7.2.4 12.4 4 14.6 10.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M13.6 15.9l5.2.6.7-5.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>What the client said next</figcaption>
+        <img src="assets/img/proof/tiare-best-edit.webp" alt="Message from a client reading: I've worked with video editors in the past but this edit is by far one of the best" width="1030" height="470" loading="lazy" decoding="async">
+      </figure>
     </article>
   </div>
 </section>
@@ -995,34 +1017,34 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
       </div>
       <ol class="timeline">
         <li>
-          <span class="tl-when">Aug 2025 — now</span>
-          <b>Madeline Mann · Self Made Millennial <span class="subs">451K subs</span></b>
-          <em>Long-form editing, Shorts &amp; TikTok cutdowns, thumbnails</em>
+          <span class="tl-when">Jul 2026 — now</span>
+          <b>Everkind Brands <span class="subs">UltimaPeak · Elivora</span></b>
+          <em>AI-native ad creative for a portfolio of D2C supplement brands — 7–10 batches a week for Meta</em>
         </li>
         <li>
-          <span class="tl-when">Apr 2026</span>
-          <b>Ellen Mackenzie · Dishing up Digital <span class="subs">50K+ subs</span></b>
-          <em>Social-media strategy long-form, cut for retention</em>
+          <span class="tl-when">2024 — Q1 2026</span>
+          <b>SKL Media <span class="subs">Agency · Dubai</span></b>
+          <em>Post-production for a portfolio of YouTube channels, long-form and short-form — including Maria Haversham and Amelia Fenmore</em>
         </li>
         <li>
-          <span class="tl-when">Feb 2025 — Mar 2026</span>
-          <b>Keegan Edwards <span class="subs">3 channels · 10K+ combined</span></b>
-          <em>Thirteen months of thumbnail design — longest-running engagement</em>
-        </li>
-        <li>
-          <span class="tl-when">Feb 2025 — now</span>
-          <b>Michelle J Raymond <span class="subs">7K+ subs</span></b>
-          <em>Ongoing thumbnail design against an established brand system</em>
-        </li>
-        <li>
-          <span class="tl-when">Mar — May 2026</span>
-          <b>Erika Thomas</b>
+          <span class="tl-when">Q1 — Jul 2026</span>
+          <b>Erika Thomas · Coach Bae University <span class="subs">700 subs</span></b>
           <em>Career &amp; salary-negotiation long-form, graphics and thumbnails</em>
         </li>
         <li>
-          <span class="tl-when">Oct 2025 — Apr 2026</span>
-          <b>The Content Bosses <span class="subs">Agency</span></b>
-          <em>Thumbnail design</em>
+          <span class="tl-when">2022 — 2024</span>
+          <b>Mark Taylor · Autogrowth Academy</b>
+          <em>Long-form YouTube and short-form ad creative</em>
+        </li>
+        <li>
+          <span class="tl-when">2022 — 2024</span>
+          <b>Tiare Tarewa · Sovereign Identity <span class="subs">1.27K subs</span></b>
+          <em>Short-form reels and ad creative</em>
+        </li>
+        <li>
+          <span class="tl-when">2022 — 2024</span>
+          <b>Julian Corzo</b>
+          <em>Long-form YouTube and short-form content</em>
         </li>
       </ol>
     </div>
